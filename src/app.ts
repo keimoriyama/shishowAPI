@@ -9,4 +9,4 @@ const app = express();
 app.get('/', indexRouter)
 app.get('/firebase', getDataFromFirebase)
 
-app.listen(3000, () => console.log('listening'))
+app.listen(process.env.Port || 3000, () => console.log('listening'))
