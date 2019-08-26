@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node build/app.js"
+    "dev": "node build/app.js",
+    "server": "npx tsc & node build/app.js"
   },
   "keywords": [],
   "author": "",
