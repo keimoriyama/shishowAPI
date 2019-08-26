@@ -15,16 +15,27 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 const database = firebase.firestore()
-
+var UserDataOfJson = [{ username: '', bio: '', email: '', image: '', favoritegame: '' }]
+var DataOfUser = { username: "", bio: "", email: "", image: "", favoritegame: '' }
 module.exports = router.get('/firebase', (req: express.Request, res: express.Response) => {
     database.collection("USER").get().then(
         (snapshot) => {
             snapshot.forEach((document) => {
-                console.log(document.data().username)
+                DataOfUser.username = document.data().username
+                DataOfUser.bio = document.data().bio
+                DataOfUser.email = document.data().email
+                DataOfUser.image = document.data().image
+                DataOfUser.favoritegame = document.data().favoritegame
+                console.log(DataOfUser)
+                UserDataOfJson.push(DataOfUser)
             })
         }
     ).catch((err) => {
         console.log(err)
     })
-    res.send("hello firebase")
+    var newData = UserDataOfJson.filter(function (item, index) {
+        if (item.username != "") return true;
+    })
+    UserDataOfJson = newData
+    res.json(UserDataOfJson)
 })
